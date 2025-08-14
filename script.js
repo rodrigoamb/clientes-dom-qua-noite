@@ -26,10 +26,10 @@ let indexExcluindo = null;
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  const nome = inputNome.value;
-  const sobrenome = inputSobrenome.value;
-  const cpf = inputCpf.value;
-  const email = inputEmail.value;
+  const nome = inputNome.value.trim();
+  const sobrenome = inputSobrenome.value.trim();
+  const cpf = inputCpf.value.trim();
+  const email = inputEmail.value.trim();
 
   const objCliente = {
     nome,
