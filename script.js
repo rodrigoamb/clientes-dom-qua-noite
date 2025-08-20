@@ -28,6 +28,15 @@ console.log(modalEditar);
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
+  if (
+    !inputNome.value ||
+    !inputSobrenome.value ||
+    !inputCpf.value ||
+    !inputEmail
+  ) {
+    return;
+  }
+
   const nome = inputNome.value.trim();
   const sobrenome = inputSobrenome.value.trim();
   const cpf = inputCpf.value.trim();
@@ -107,7 +116,39 @@ function abrirModalExcluir(index) {
 
 function fecharModalExcluir() {
   indexExcluindo = null;
-  modalExcluir.stye.display = "none";
+  modalExcluir.style.display = "none";
 }
 
 btnCancelarExclusao.addEventListener("click", fecharModalExcluir);
+
+function confirmarExclusao() {
+  clientes.splice(indexExcluindo, 1);
+
+  renderizarTabela();
+  fecharModalExcluir();
+}
+
+btnConfirmarExclusao.addEventListener("click", confirmarExclusao);
+
+formEdicao.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  if (
+    !inputEditNome.value ||
+    !inputEditSobrenome.value ||
+    !inputEditCpf.value ||
+    !inputEditEmail
+  ) {
+    return;
+  }
+
+  clientes[indexEditando] = {
+    nome: inputEditNome.value,
+    sobrenome: inputEditSobrenome.value,
+    cpf: inputEditCpf.value,
+    email: inputEditEmail.value,
+  };
+
+  renderizarTabela();
+  fecharModalEditar();
+});
