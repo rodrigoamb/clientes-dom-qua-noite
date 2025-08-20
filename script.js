@@ -22,6 +22,8 @@ let clientes = [];
 let indexEditando = null;
 let indexExcluindo = null;
 
+console.log(modalEditar);
+
 //adicionando o objeto no array (criando um novo cliente)
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -64,10 +66,12 @@ function renderizarTabela() {
     const btnEditar = document.createElement("button");
     btnEditar.classList.add("editar");
     btnEditar.textContent = "Editar";
+    btnEditar.onclick = () => abrirModalEditar(cliente, index);
 
     const btnExcluir = document.createElement("button");
     btnExcluir.classList.add("excluir");
     btnExcluir.textContent = "Excluir";
+    btnExcluir.onclick = () => abrirModalExcluir(index);
 
     tdAcoes.appendChild(btnEditar);
     tdAcoes.appendChild(btnExcluir);
@@ -77,3 +81,33 @@ function renderizarTabela() {
     tabela.appendChild(tr);
   });
 }
+
+function abrirModalEditar(cliente, index) {
+  modalEditar.style.display = "flex";
+
+  inputEditNome.value = cliente.nome;
+  inputEditSobrenome.value = cliente.sobrenome;
+  inputEditCpf.value = cliente.cpf;
+  inputEditEmail.value = cliente.email;
+
+  indexEditando = index;
+}
+
+function fecharModalEditar() {
+  indexEditando = null;
+  modalEditar.style.display = "none";
+}
+
+btnCancelarEdicao.addEventListener("click", fecharModalEditar);
+
+function abrirModalExcluir(index) {
+  indexExcluindo = index;
+  modalExcluir.style.display = "flex";
+}
+
+function fecharModalExcluir() {
+  indexExcluindo = null;
+  modalExcluir.stye.display = "none";
+}
+
+btnCancelarExclusao.addEventListener("click", fecharModalExcluir);
